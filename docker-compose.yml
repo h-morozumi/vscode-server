@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  vscode:
+    build: .
+    container_name: vscode-server
+    ports:
+      - "8080:8080"
+    volumes:
+      - vscode_data:/home/coder/project
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - PASSWORD=${PASSWORD:-password}
+      - SUDO_PASSWORD=${SUDO_PASSWORD:-password}
+    networks:
+      - vscode_network
+
+volumes:
+  vscode_data:
+
+networks:
+  vscode_network:
